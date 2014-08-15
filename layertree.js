@@ -13,6 +13,7 @@
 
 var spawn = require('child_process').spawn;
 
+// Wait for `adb` server and device in a separate process
 console.log('Waiting for device...\n');
 
 spawn('adb', ['wait-for-device'], { detached: true }).on('close', function(code) {
