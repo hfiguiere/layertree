@@ -49,7 +49,7 @@ logcat.stdout.on('data', function(data) {
 
         count++;
 
-        if (count >= total) {
+        if (count == total) {
           process.exit();
         }
 
