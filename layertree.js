@@ -7,7 +7,8 @@
  * outputs them to the console without log noise.
  *
  * Usage:
- *   $ ./layertree.js
+ *
+ *   $ ./layertree.js [number_of_layer_trees]
  */
 
 // Regular expression for finding layer tree dump
@@ -17,8 +18,7 @@ var delimiter = /^I\/Gecko\s+\(.+\)\:\sLayerManager\s\(.+\)/g;
 var tree = null;
 
 // Track number of layer tree dumps
-var total = process.argv.length === 3 ? process.argv[2] : -1;
-var count = 0;
+var count = process.argv[2] || -1;
 
 // Start `adb logcat`
 var logcat = require('child_process').spawn('adb', ['logcat']);
@@ -47,9 +47,7 @@ logcat.stdout.on('data', function(data) {
         console.log(tree.join('\n'));
         console.log('********  END LAYER TREE  ********\n\n');
 
-        count++;
-
-        if (count == total) {
+        if (--count === 0) {
           process.exit();
         }
 
