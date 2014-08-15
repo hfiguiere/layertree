@@ -47,7 +47,9 @@ logcat.stdout.on('data', function(data) {
         console.log(tree.join('\n'));
         console.log('********  END LAYER TREE  ********\n\n');
 
+        // Terminate if the layer tree dump count is met
         if (--count === 0) {
+          logcat.kill();
           process.exit();
         }
 
@@ -65,4 +67,9 @@ logcat.stdout.on('data', function(data) {
 // Handle `adb logcat` termination
 logcat.on('close', function(code) {
   console.log('[adb process exited with code ' + code + ']');
+});
+
+// Gracefully terminate `adb logcat` upon termination
+process.on('SIGINT', function() {
+  logcat.kill();
 });
