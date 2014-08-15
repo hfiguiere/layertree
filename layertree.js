@@ -68,8 +68,3 @@ logcat.stdout.on('data', function(data) {
 logcat.on('close', function(code) {
   console.log('[adb process exited with code ' + code + ']');
 });
-
-// Gracefully terminate `adb logcat` upon termination
-process.on('SIGINT', function() {
-  logcat.kill();
-});
