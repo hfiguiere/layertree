@@ -1,0 +1,9 @@
+{
+  "name": "layertree",
+  "private": true,
+  "version": "0.0.1",
+  "description": "A tool to monitor Gecko layers Firefox OS.",
+  "dependencies": {
+	"minimist": "~1.1.0"
+  }
+}
