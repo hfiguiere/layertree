@@ -8,10 +8,15 @@
  *
  * Usage:
  *
- *   $ ./layertree.js [number_of_layer_trees]
+ *   $ ./layertree.js [--pid=PID] [number_of_layer_trees]
  */
 
 var spawn = require('child_process').spawn;
+var parseArgs = require('minimist');
+var args = parseArgs(process.argv.slice(2));
+
+
+console.log(args);
 
 // Wait for `adb` server and device in a separate process
 console.log('Waiting for device...\n');
@@ -20,14 +25,16 @@ spawn('adb', ['wait-for-device'], { detached: true }).on('close', function(code)
 
   console.log('Device ready\n');
 
+  var pid = args.pid ? args.pid : '[0-9]+';
+  
   // Regular expression for finding layer tree dump
-  var delimiter = /^I\/Gecko\s+\(.+\)\:\s(Client)?LayerManager\s\(.+\)/g;
+  var delimiter = new RegExp("^I\\/Gecko\\s+\\(\\s*" + pid + "\\)\\:\\s(?:Client)?LayerManager\\s\\(.+\\)", 'g');
 
   // Current layer tree dump
   var tree = null;
 
   // Track number of layer tree dumps
-  var count = process.argv[2] || -1;
+  var count = args._[0] || -1;
 
   // Start `adb logcat`
   var logcat = spawn('adb', ['logcat']);

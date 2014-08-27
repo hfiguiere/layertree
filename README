@@ -1,3 +1,13 @@
+Require minimist
+
+Syntax:
+
+./layertree.js [--pid=PID] [number_of_layer_trees]
+
+--pid specify the PID of the app you want to debug.
+
+the last argument (optional) is the number of layers you want to display.
+
 Authors:
 
 Justin DArcangelo
