@@ -21,7 +21,7 @@ spawn('adb', ['wait-for-device'], { detached: true }).on('close', function(code)
   console.log('Device ready\n');
 
   // Regular expression for finding layer tree dump
-  var delimiter = /^I\/Gecko\s+\(.+\)\:\sLayerManager\s\(.+\)/g;
+  var delimiter = /^I\/Gecko\s+\(.+\)\:\sClientLayerManager\s\(.+\)/g;
 
   // Current layer tree dump
   var tree = null;
